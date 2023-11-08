@@ -17,6 +17,7 @@ export interface Work extends Document {
   category: CategorySchema[];
 }
 
+
 // function generateAllWorks(): void {
   //   const sectionGallery: HTMLElement | null = document.querySelector(".gallery");
   

@@ -1,1 +1,0 @@
-// Component meant for the project listing logic

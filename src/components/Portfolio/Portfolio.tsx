@@ -1,5 +1,5 @@
 import PenToSquare from "../../assets/icons/pen-to-square-thin.png"
-
+import Gallery from "../Gallery/Gallery";
 
 const Portfolio = () => {
   return (
@@ -20,8 +20,7 @@ const Portfolio = () => {
             <button className="long buttons btn-hotels">Hôtels & restaurants</button>
           </div>
         </article>
-        <div className="gallery">
-        </div>
+        <Gallery />
       </section>
     </>
   )
