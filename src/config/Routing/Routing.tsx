@@ -7,6 +7,10 @@ import Footer from "../../Layout/Footer/Footer";
 import Header from "../../Layout/Header/Header";
 import Layout from "../../Layout/Layout";
 import Login from "../../Pages/Login/Login";
+import Form from "../../Pages/Login/Form";
+import Identify from "../../Pages/Login/LoginForm";
+import AxiosForm from "../../Pages/Login/AxiosForm";
+import { AuthProvider } from "react-auth-kit";
 
 
 const router = createBrowserRouter([
@@ -24,14 +28,37 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Layout children={<Login />} />
+    element: <Layout children={<AxiosForm />} />
+  },
+  {
+    path: "/form",
+    element: <Form />
+  },
+  {
+    path: "/connect",
+    element: <Identify />
+  },
+  {
+    path: "axios",
+    element: <AxiosForm />
   }
 ])
 
 
 export default function Routing() {
-  return <RouterProvider router={router}
-    future={{ v7_startTransition: true }}
-  />
+  return (
+    <>
+      <AuthProvider
+        authType={"cookie"}
+        authName={"_auth"}
+        cookieDomain={window.location.hostname}
+        cookieSecure={false}
+      >
+        <RouterProvider router={router}
+          future={{ v7_startTransition: true }}
+        />
+      </AuthProvider>
+    </>
+  )
 }
 

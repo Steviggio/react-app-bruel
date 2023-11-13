@@ -1,5 +1,5 @@
 import PenToSquare from "../../assets/icons/pen-to-square-thin.png"
-import Gallery from "../Gallery/Gallery";
+import Gallery from "../../components/Gallery/Gallery";
 
 const Portfolio = () => {
   return (

@@ -1,6 +1,6 @@
-import Contact from "../../components/Contact/Contact";
-import Portfolio from "../../components/Portfolio/Portfolio";
-import Introduction from "../../components/Introduction/Introduction";
+import Contact from "../Contact/Contact";
+import Portfolio from "../Portfolio/Portfolio";
+import Introduction from "../Introduction/Introduction";
 
 const Homepage = () => {
   return (

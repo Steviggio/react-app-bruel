@@ -1,9 +1,25 @@
 import { Link } from "react-router-dom";
 import InstagramIcon from "../../assets/icons/instagram.png"
+import PenToSquare from "../../assets/icons/pen-to-square-white.png"
 
 const Header = () => {
+
+  const isAuthTokenPresent = () => {
+    const authToken = document.cookie.split(';').find(cookie => cookie.trim().startsWith('_auth='));
+    console.log(authToken)
+    return authToken !== undefined;
+  }
+
   return (
     <>
+      {isAuthTokenPresent() && (
+        <section className="modal-management visible">
+          <div id="modal" className="modal-btn">
+            <img src={PenToSquare} alt="pen-to-square icon" />
+            <p>Mode édition</p>
+            <button className="btn-modal">publier les changements</button>
+          </div>
+        </section>)}
       <header className="flex justify-between">
         <Link to="/"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></Link>
         <nav>

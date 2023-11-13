@@ -14,7 +14,6 @@ function Gallery() {
   return (
     <div className="gallery">
       {work.map((item: Work, index: number) => (
-
         <figure key={index}>
           <img src={item.imageUrl} alt={`${item.imageUrl} image`} />
         </figure>

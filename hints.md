@@ -43,3 +43,5 @@ function App() {
   )
 }
 ```
+
+Adding the coomponent logic inside the Types file and looking a way to implement the login logic inside the component/ with a redirection to the homepage
