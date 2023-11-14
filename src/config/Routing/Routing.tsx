@@ -6,7 +6,6 @@ import App from "../../App";
 import Footer from "../../Layout/Footer/Footer";
 import Header from "../../Layout/Header/Header";
 import Layout from "../../Layout/Layout";
-import Login from "../../Pages/Login/Login";
 import Form from "../../Pages/Login/Form";
 import Identify from "../../Pages/Login/LoginForm";
 import AxiosForm from "../../Pages/Login/AxiosForm";

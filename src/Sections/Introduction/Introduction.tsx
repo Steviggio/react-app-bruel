@@ -1,30 +1,46 @@
 import ProfilePic from "../../assets/images/sophie-bluel.png"
 import PenToSquare from "../../assets/icons/pen-to-square-thin.png"
+import { fetchWorks, isAuthTokenPresent } from "../../lib/common"
+import useModal from "../../components/Modal/useModal"
+import { AddProjectModal } from "../../components/Modal/AddProjectModal"
+import { useState, useEffect } from "react"
+import { Work } from "../../lib/interfaces"
+
 
 const Introduction = () => {
+  const [works, setWorks] = useState<Work[]>([]);
+  const { isShowing, toggle: toggleModal } = useModal();
+
+  useEffect(() => {
+    if (works.length === 0) {
+      fetchWorks().then((works: Work[]) => setWorks(works));
+    }
+  }, [works])
+
 
   return (
     <>
-      <section id="introduction">
+      <AddProjectModal show={isShowing} onCloseButtonClick={toggleModal} projects={works} />
+      <section id="introduction" >
         <figure>
           <img src={ProfilePic} alt="Sophie Bluel portrait" />
-          <div className="modal-modify-btn">
+          {isAuthTokenPresent() && (<div className="modal-modify-btn">
             <div id="introduction-modal">
               <img src={PenToSquare} alt="" />
-              <a href="#modal-box1" className="js-modal">modifier</a>
+              <a href="#modal-box1" className="js-modal" onClick={toggleModal}>modifier</a>
             </div>
-          </div>
+          </div>)}
         </figure>
 
 
         <article>
 
-          <div className="modal-modify-btn">
+          {isAuthTokenPresent() && (<div className="modal-modify-btn">
             <div id="article-modal">
               <img src={PenToSquare} alt="" />
-              <a href="#modal-box1" className="js-modal">modifier</a>
+              <a href="#modal-box1" className="js-modal" onClick={toggleModal}>modifier</a>
             </div>
-          </div>
+          </div>)}
           <h2>Designer d'espace</h2>
           <p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
             finale du chantier.</p>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { API_ROUTES } from '../../utils/constant';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ const Login = () => {
     const chargeUtile = JSON.stringify(chargeUtileText);
 
     try {
-      const response = await fetch("http://localhost:5678/api/users/login", {
+      const response = await fetch(API_ROUTES.SIGN_IN, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

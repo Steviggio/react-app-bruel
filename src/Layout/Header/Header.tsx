@@ -1,14 +1,9 @@
 import { Link } from "react-router-dom";
 import InstagramIcon from "../../assets/icons/instagram.png"
 import PenToSquare from "../../assets/icons/pen-to-square-white.png"
+import { isAuthTokenPresent } from "../../lib/common";
 
 const Header = () => {
-
-  const isAuthTokenPresent = () => {
-    const authToken = document.cookie.split(';').find(cookie => cookie.trim().startsWith('_auth='));
-    console.log(authToken)
-    return authToken !== undefined;
-  }
 
   return (
     <>
