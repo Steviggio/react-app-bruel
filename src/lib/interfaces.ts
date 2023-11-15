@@ -22,8 +22,20 @@ export interface Work extends Document {
   category: CategorySchema[];
 }
 
-export interface AddProjectModalProps {
+export interface GalleryModalProps {
   show: boolean;
   onCloseButtonClick: () => void;
   projects: Work[];
+}
+
+export interface AddProjectModalProps {
+  show: boolean;
+  onCloseButtonClick: () => void;
+  backToPrevious: () => void;
+}
+
+export interface PostWorkBody extends Document {
+  image: string;
+  title: string;
+  category: CategorySchema["id"];
 }
