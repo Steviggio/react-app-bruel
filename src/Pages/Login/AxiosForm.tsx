@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { useSignIn } from "react-auth-kit";
 
-function AxiosForm(props: any) {
+function AxiosForm(_props: any) {
   const [error, setError] = useState("");
   const signIn = useSignIn();
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ function AxiosForm(props: any) {
         token: response.data.token,
         expiresIn: 7200,
         tokenType: "Bearer",
-        authState: { email: values.email },
+        authState: { email: values.email, userId: response.data.userId },
       });
       alert("Connexion réussie")
       navigate("/")

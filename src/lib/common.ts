@@ -20,3 +20,50 @@ export const isAuthTokenPresent = () => {
 export const fetchWorks = (): Promise<Work[]> => {
   return fetch(API_ROUTES.PROJECTS).then(response => response.json());
 };
+
+export const getUserInfos = () => {
+  const authInfos = document.cookie.split(";").find(cookie => cookie.trim().startsWith("_auth_state="));
+
+  if (authInfos) {
+
+    // Get the userId value after the semicolon 
+    //  need to use "=" sign to acces the value
+    const authValue = authInfos.split('=')[1];
+
+    // Displays the value of the stored cookie
+    console.log("Cookie value:", authValue);
+    try {
+
+      // Displays the decode value in the console
+      const decodedValue = decodeURIComponent(authValue);
+      console.log("Decoded value:", decodedValue);
+
+      // Displays the Json object extracted from the cookie
+      const authObject = JSON.parse(decodedValue);
+      console.log("Auth object:", authObject);
+
+      return authObject;
+    } catch (error) {
+      // Displays errors from JSON parsing 
+      console.error("Erreur lors du parsing JSON:", error);
+
+      //  returns null if a JSON parsing error occur 
+      return null;
+    }
+  }
+
+  // Returns null if cookie not found or unvalid
+  return null;
+}
+
+
+export const getToken = () => {
+  const authCookie = document.cookie.split(";").find(cookie => cookie.trim().startsWith("_auth="));
+
+  if (authCookie) {
+    const token = authCookie.split('=')[1]; // Récupère la partie après le "="
+    return token;
+  }
+
+  return null; // Retourne null si le cookie n'est pas trouvé ou n'est pas valide
+}
