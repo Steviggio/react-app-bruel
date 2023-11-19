@@ -7,44 +7,24 @@ import ModalGallery from "./ModalGallery";
 import useModal from "./useModal";
 import { getUserInfos } from "../../lib/common";
 import { getToken } from "../../lib/common";
-import axios from "axios";
+import { API_ROUTES } from "../../utils/constant";
+import { useEffect, useState } from "react";
 
 
-export const AddProjectModal: React.FC<GalleryModalProps> = ({ show, onCloseButtonClick, projects }) => {
+export const AddProjectModal: React.FC<GalleryModalProps> = ({ show, onCloseButtonClick, projects, deleteProject }) => {
+  const [works, setWorks] = useState<Work[]>(projects); // State for works array
   const { isShowing, toggle: toggleModal } = useModal();
 
+  useEffect(() => {
+    setWorks(projects);
+  }, [projects]);
+
   const handleClick = async (index: number) => {
-    console.log(`Clicked on trash bin at index ${index}`);
-
-    const authInfos = getUserInfos()
-    const authToken = getToken()
-    if (authInfos && authInfos.userId && authToken) {
-      const userId = authInfos.userId;
-      const token = authToken
-      console.log("userId value: ", userId)
-      console.log("Token value: ", token)
-      try {
-        const response = await axios.delete(
-          `http://localhost:5678/api/works/${index}`, {
-          headers: {
-            'Authorization': `Bearer ${token + " " + `userId:${userId}`}`,
-            'Accept': '*/*'
-          },
-        });
-        if (response.status === 200) {
-          console.log("Work successfully deleted.");
-          const updatedWorks = [...works]; // Créez une copie de la liste existante
-          updatedWorks.splice(index, 1); // Supprimez le projet de la liste
-          setWorks(updatedWorks); // Mettez à jour l'état avec la nouvelle liste de projets
-        } else {
-          console.error("An error occurred when deleting a project.");
-        }
-      } catch (error) {
-        console.log({ error })
-      }
-
-    } else {
-      console.error("Cannot get the authentication informations.");
+    try {
+      await deleteProject(index); // Call deleteProject function from props
+      console.log("Work successfully deleted.");
+    } catch (error) {
+      console.error("An error occurred when deleting a project:", error);
     }
   };
 
@@ -71,7 +51,7 @@ export const AddProjectModal: React.FC<GalleryModalProps> = ({ show, onCloseButt
           </span>
           <h2 id="titlemodal">Galerie photo</h2>
           <div className="modal-gallery">
-            {projects.map((item: Work, index: number) => (
+            {works.map((item: Work, index: number) => (
               <figure key={index}>
                 {index === 0 ? (
                   <>

@@ -12,10 +12,10 @@ const Introduction = () => {
   const { isShowing, toggle: toggleModal } = useModal();
 
   useEffect(() => {
-    if (works.length === 0) {
-      fetchWorks().then((works: Work[]) => setWorks(works));
+    if (!works || works.length === 0) {
+      fetchWorks().then((fetchedWorks: Work[]) => setWorks(fetchedWorks || []));
     }
-  }, [works])
+  }, [works]);
 
 
   return (

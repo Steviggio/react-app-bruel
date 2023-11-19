@@ -10,6 +10,7 @@ import Form from "../../Pages/Login/Form";
 import Identify from "../../Pages/Login/LoginForm";
 import AxiosForm from "../../Pages/Login/AxiosForm";
 import { AuthProvider } from "react-auth-kit";
+import GalleryRedux from "../../components/Gallery/GalleryRedux";
 
 
 const router = createBrowserRouter([
@@ -38,8 +39,12 @@ const router = createBrowserRouter([
     element: <Identify />
   },
   {
-    path: "axios",
+    path: "/axios",
     element: <AxiosForm />
+  },
+  {
+    path: "/Redux",
+    element: <GalleryRedux />
   }
 ])
 

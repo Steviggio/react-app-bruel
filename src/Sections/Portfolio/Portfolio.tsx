@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import PenToSquare from "../../assets/icons/pen-to-square-thin.png";
 import Gallery from "../../components/Gallery/Gallery";
 import { CategorySchema, Work } from "../../lib/interfaces";
-import { isAuthTokenPresent } from "../../lib/common";
+import { getToken, getUserInfos, isAuthTokenPresent } from "../../lib/common";
 import { AddProjectModal } from "../../components/Modal/AddProjectModal";
 import useModal from "../../components/Modal/useModal";
 import { fetchWorks } from "../../lib/common";
@@ -27,13 +27,45 @@ const Portfolio = () => {
     }
   }, [categories, works]);
 
+  const deleteProject = async (index: number) => {
+    try {
+      const authToken = getToken();
+      if (!authToken) throw new Error("Auth token not found");
+
+      const userId = getUserInfos()?.userId;
+      if (!userId) throw new Error("User ID not found");
+
+      const response = await fetch(`${API_ROUTES.PROJECTS}/${index}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${authToken} userId:${userId}`,
+          Accept: "*/*",
+        },
+      });
+
+      if (response.status === 200) {
+        const updatedWorks = works.filter((project) => project.id !== index);
+        setWorks(updatedWorks);
+        console.log("Work successfully deleted.");
+
+        // Fetch updated works after deletion
+        fetchWorks().then((fetchedWorks: Work[]) => setWorks(fetchedWorks || []));
+      } else {
+        console.error("An error occurred when deleting a project.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
+  console.log(works)
   const handleCategoryChange = (category: number | null) => {
     setSelectedCategory(category);
   };
 
   return (
     <>
-      <AddProjectModal show={isShowing} onCloseButtonClick={toggleModal} projects={works} />
+      <AddProjectModal show={isShowing} onCloseButtonClick={toggleModal} projects={works} deleteProject={deleteProject} />
       <section id="portfolio">
         <h2>Mes Projets</h2>
         {isAuthTokenPresent() && (

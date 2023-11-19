@@ -1,4 +1,4 @@
-import { Work } from "./interfaces";
+import { Work, WorkList } from "./interfaces";
 import { API_ROUTES } from "../utils/constant";
 
 
@@ -17,8 +17,16 @@ export const isAuthTokenPresent = () => {
   return authToken !== undefined;
 }
 
-export const fetchWorks = (): Promise<Work[]> => {
-  return fetch(API_ROUTES.PROJECTS).then(response => response.json());
+export const fetchWorks = async (): Promise<Work[]> => {
+  try {
+    const response = await fetch(API_ROUTES.PROJECTS)
+    const projects = response.json()
+
+    return projects
+  } catch (error) {
+    console.error("Error fetching projects: ", error);
+    return []
+  }
 };
 
 export const getUserInfos = () => {

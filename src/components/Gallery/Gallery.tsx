@@ -1,12 +1,13 @@
 import { Work } from "../../lib/interfaces";
-import filteredWork from "../../lib/common";
 import { GalleryProps } from "../../lib/interfaces";
-
+import filteredWork from "../../lib/common";
 
 function Gallery({ works, selectedCategory }: GalleryProps) {
-  const filteredWorks = selectedCategory
-    ? filteredWork(works, selectedCategory)
-    : works;
+  const filteredWorks = selectedCategory ? filteredWork(works, selectedCategory) : works;
+
+  if (!filteredWorks || filteredWorks.length === 0) {
+    return <div>No works found.</div>; // Handle case when no works are available
+  }
 
   return (
     <div className="gallery">
