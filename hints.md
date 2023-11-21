@@ -45,3 +45,34 @@ function App() {
 ```
 
 Adding the coomponent logic inside the Types file and looking a way to implement the login logic inside the component/ with a redirection to the homepage
+
+
+
+### Routing with react-router-dom : 
+
+To set up the routing of your react app, you can use react-router-dom to handle the content of the different urls of your app, each of these urls will be associated to a specific 'element" prop corresponding to the React content (component) meant to be displayed. 
+
+Here is an example of basic router: 
+
+```ts
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import App from "../../App";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  }
+])
+
+export default function Routing() {
+  return (
+    <>
+      <RouterProvider router={router}
+        future={{ v7_startTransition: true }}
+      />
+    </>
+  )
+}
+```
+
