@@ -19,9 +19,9 @@ export const AddProjectModal: React.FC<GalleryModalProps> = ({ show, onCloseButt
     setWorks(projects);
   }, [projects]);
 
-  const handleClick = async (index: number) => {
+  const handleClick = (index: number) => {
     try {
-      await deleteProject(index); // Call deleteProject function from props
+      deleteProject(index); // Call deleteProject function from props
       console.log("Work successfully deleted.");
     } catch (error) {
       console.error("An error occurred when deleting a project:", error);
